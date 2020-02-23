@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">PlantV2</string>
+    <string name="btn_view_plants">View Plants</string>
+    <string name="btn_add_plant">Add Plant</string>
+    <string name="pic_leaves">leaves</string>
+    <string name="fill_species">Species:</string>
+    <string name="fill_name">Name:</string>
+    <string name="fill_notes">Notes:</string>
+    <string name="fill_location">Location:</string>
+    <string name="btn_create_plant">Create Plant</string>
+
+
+</resources>

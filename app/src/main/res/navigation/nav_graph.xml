@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/placeholder4">
+
+
+    <fragment android:id="@+id/placeholder4" >
+        <action
+            android:id="@+id/action_placeholder4_to_placeholder5"
+            app:destination="@id/placeholder5" />
+        <action
+            android:id="@+id/action_placeholder4_to_placeholder6"
+            app:destination="@id/placeholder6" />
+    </fragment>
+    <fragment android:id="@+id/placeholder5" />
+    <fragment android:id="@+id/placeholder6" />
+</navigation>

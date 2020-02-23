@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreatePlantActivity">
+
+    <EditText
+        android:id="@+id/fill_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/fill_name"
+        app:layout_constraintBottom_toTopOf="@+id/fill_species"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:importantForAutofill="no" />
+
+    <EditText
+        android:id="@+id/fill_species"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/fill_species"
+        app:layout_constraintBottom_toTopOf="@+id/fill_location"
+        app:layout_constraintEnd_toEndOf="@+id/fill_name"
+        app:layout_constraintStart_toStartOf="@+id/fill_name"
+        app:layout_constraintTop_toBottomOf="@+id/fill_name"
+        android:importantForAutofill="no" />
+
+    <EditText
+        android:id="@+id/fill_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/fill_location"
+        app:layout_constraintBottom_toTopOf="@+id/fill_notes"
+        app:layout_constraintEnd_toEndOf="@+id/fill_species"
+        app:layout_constraintStart_toStartOf="@+id/fill_species"
+        app:layout_constraintTop_toBottomOf="@+id/fill_species"
+        app:layout_constraintVertical_bias="0.47"
+        android:importantForAutofill="no" />
+
+    <EditText
+        android:id="@+id/fill_notes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/fill_notes"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="@+id/fill_location"
+        app:layout_constraintStart_toStartOf="@+id/fill_location"
+        app:layout_constraintTop_toBottomOf="@+id/fill_location"
+        android:importantForAutofill="no" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="144dp"
+        android:text="@string/btn_create_plant"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/fill_notes"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="@+id/fill_notes" />
+</androidx.constraintlayout.widget.ConstraintLayout>
