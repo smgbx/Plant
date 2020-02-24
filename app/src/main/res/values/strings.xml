@@ -8,6 +8,10 @@
     <string name="fill_notes">Notes:</string>
     <string name="fill_location">Location:</string>
     <string name="btn_create_plant">Create Plant</string>
+    <string name="txt_name">Name:</string>
+    <string name="txt_species">Species:</string>
+    <string name="txt_location">Location:</string>
+    <string name="txt_notes">Notes:</string>
 
 
 </resources>
