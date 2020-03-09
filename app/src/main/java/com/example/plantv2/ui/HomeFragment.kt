@@ -7,11 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 
 import com.example.plantv2.R
+import com.example.plantv2.db.ProfileDatabase
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.coroutines.launch
 
-class HomeFragment : Fragment() {
+class HomeFragment : BaseFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,6 +26,17 @@ class HomeFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        recycler_view_profiles.setHasFixedSize(true)
+        recycler_view_profiles.layoutManager = StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL)
+
+        launch {
+            context?.let {
+                val profiles = ProfileDatabase(it).getProfileDao().getAllProfiles()
+                recycler_view_profiles.adapter = ProfileAdapter(profiles)
+            }
+
+        }
 
         button_add.setOnClickListener {
 

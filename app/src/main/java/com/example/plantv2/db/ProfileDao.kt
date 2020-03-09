@@ -8,8 +8,8 @@ import androidx.room.Query
 interface ProfileDao {
 
     @Insert
-    fun addProfile(profile: Profile)
+    suspend fun addProfile(profile: Profile)
 
-    @Query("SELECT * FROM profile")
-    fun getAllProfiles() : List<Profile>
+    @Query("SELECT * FROM profile ORDER BY id DESC")
+    suspend fun getAllProfiles() : List<Profile>
 }

@@ -14,9 +14,10 @@ import com.example.plantv2.R
 import com.example.plantv2.db.Profile
 import com.example.plantv2.db.ProfileDatabase
 import kotlinx.android.synthetic.main.fragment_add_profile.*
+import kotlinx.coroutines.launch
 
 
-class AddProfileFragment : Fragment() {
+class AddProfileFragment : BaseFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,29 +42,16 @@ class AddProfileFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            val profile = Profile(profileName, profileSpecies, profileLocation)
-
-            saveProfile(profile)
-
-        }
-    }
-
-    private fun saveProfile(profile:Profile){
-        class SaveProfile : AsyncTask<Void, Void, Void>(){
-
-            override fun doInBackground(vararg p0: Void?): Void? {
-               ProfileDatabase(activity!!).getProfileDao().addProfile(profile)
-                return null
+            launch{
+                val profile = Profile(profileName, profileSpecies, profileLocation)
+                context?.let {
+                    ProfileDatabase(it).getProfileDao().addProfile(profile)
+                    it.toast("Profile saved")
+                }
             }
 
-            override fun onPostExecute(result: Void?) {
-                super.onPostExecute(result)
-
-                Toast.makeText(activity, "Note Saved", Toast.LENGTH_LONG).show()
-            }
         }
 
-        SaveProfile().execute()
     }
 
 }
