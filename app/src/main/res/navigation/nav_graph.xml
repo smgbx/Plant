@@ -2,17 +2,25 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/placeholder4">
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
 
-
-    <fragment android:id="@+id/placeholder4" >
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.plantv2.ui.HomeFragment"
+        android:label="My Profiles"
+        tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_placeholder4_to_placeholder5"
-            app:destination="@id/placeholder5" />
-        <action
-            android:id="@+id/action_placeholder4_to_placeholder6"
-            app:destination="@id/placeholder6" />
+            android:id="@+id/actionAddProfile"
+            app:destination="@id/addProfileFragment" />
     </fragment>
-    <fragment android:id="@+id/placeholder5" />
-    <fragment android:id="@+id/placeholder6" />
+    <fragment
+        android:id="@+id/addProfileFragment"
+        android:name="com.example.plantv2.ui.AddProfileFragment"
+        android:label="Add Profile"
+        tools:layout="@layout/fragment_add_profile">
+        <action
+            android:id="@+id/actionSaveProfile"
+            app:destination="@id/homeFragment" />
+    </fragment>
 </navigation>

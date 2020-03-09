@@ -1,9 +1,10 @@
-package com.example.plantv2
+package com.example.plantv2.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
 import android.os.Handler
+import com.example.plantv2.R
 
 class SplashActivity : AppCompatActivity() {
 
@@ -18,7 +19,7 @@ class SplashActivity : AppCompatActivity() {
             // This method will be executed once the timer is over
             // Start your app main activity
 
-            startActivity(Intent(this,MainActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
 
             // close this activity
             finish()
