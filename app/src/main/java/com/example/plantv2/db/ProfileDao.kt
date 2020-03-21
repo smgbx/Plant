@@ -1,8 +1,6 @@
 package com.example.plantv2.db
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 interface ProfileDao {
@@ -12,4 +10,10 @@ interface ProfileDao {
 
     @Query("SELECT * FROM profile ORDER BY id DESC")
     suspend fun getAllProfiles() : List<Profile>
+
+    @Update
+    suspend fun updateProfile(profile: Profile)
+
+    @Delete
+    suspend fun deleteProfile(profile: Profile)
 }
