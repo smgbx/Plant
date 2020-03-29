@@ -1,10 +1,23 @@
 <resources>
-    <string name="app_name">PlantV2</string>
-    <string name="btn_view_plants">View Plants</string>
-    <string name="btn_add_plant">Add Plant</string>
+    <string name="app_name">Plant</string>
     <string name="pic_leaves">leaves</string>
-    <string name="edit_text_name">Plant Name:</string>
-    <string name="edit_text_species">Species:</string>
-    <string name="edit_text_location">Location:</string>
+
+    <string name="name">Plant name</string>
+    <string name="species">Species</string>
+    <string name="location">Location</string>
+    <string name="time">Time</string>
+    <string name="days">Day(s)</string>
+    <string name="select_time">Select time</string>
+    <string-array name="days">
+        <item>Sunday</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+    </string-array>
+
+    <string name="create_reminder">Create Reminder</string>
 
 </resources>

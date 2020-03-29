@@ -5,10 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
-
 import com.example.plantv2.R
 import com.example.plantv2.db.ProfileDatabase
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -27,8 +24,8 @@ class HomeFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        recycler_view_profiles.setHasFixedSize(true)
-        recycler_view_profiles.layoutManager = StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL)
+        //recycler_view_profiles.setHasFixedSize(true)
+        //recycler_view_profiles.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
         launch {
             context?.let {
@@ -39,7 +36,6 @@ class HomeFragment : BaseFragment() {
         }
 
         button_add.setOnClickListener {
-
             val action = HomeFragmentDirections.actionAddProfile()
             Navigation.findNavController(it).navigate(action)
         }
