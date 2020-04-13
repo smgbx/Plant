@@ -13,7 +13,6 @@ import com.example.plantv2.db.ProfileDatabase
 import kotlinx.android.synthetic.main.fragment_add_profile.*
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
-import java.time.DayOfWeek
 import java.util.*
 
 
@@ -57,7 +56,6 @@ class AddProfileFragment : BaseFragment() {
             })
         }
 
-        //calendarView.setOnDateChangeListener()
         buttonDate.setOnClickListener{
             datePicker.showDialog(calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.MONTH), calendar.get(Calendar.YEAR), object : DatePickerHelper.Callback {
                 override fun onDateSelected(dayOfMonth: Int, month: Int, year: Int) {

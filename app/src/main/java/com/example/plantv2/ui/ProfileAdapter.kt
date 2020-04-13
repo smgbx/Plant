@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.plantv2.R
 import com.example.plantv2.db.Profile
 import kotlinx.android.synthetic.main.profile_layout.view.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ProfileAdapter(private val profiles : List<Profile>) : RecyclerView.Adapter<ProfileAdapter.ProfileViewHolder>(){
     // Provide a reference to the views for each data item
@@ -25,6 +27,8 @@ class ProfileAdapter(private val profiles : List<Profile>) : RecyclerView.Adapte
     override fun onBindViewHolder(holder: ProfileViewHolder, position: Int) {
         holder.view.text_view_name.text = profiles[position].name
         holder.view.text_view_species.text = profiles[position].species
+        val dateFormat = SimpleDateFormat("h:mm a", Locale.getDefault())
+        holder.view.text_view_water_time.text = dateFormat.format(profiles[position].plantDate.time)
 
         //If user clicks on view (profile card), navigates to edit fragment
         holder.view.setOnClickListener {

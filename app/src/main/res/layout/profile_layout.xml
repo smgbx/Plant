@@ -31,6 +31,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
+            <TextView
+                android:id="@+id/text_view_water_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="7dp"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
+                tools:text="6:00am"/>
+
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
