@@ -6,12 +6,14 @@ import android.os.Bundle
 import android.view.*
 import androidx.navigation.Navigation
 import com.example.plantv2.R
+import com.example.plantv2.alarm.DatePickerHelper
 import com.example.plantv2.alarm.TimePickerHelper
 import com.example.plantv2.db.Profile
 import com.example.plantv2.db.ProfileDatabase
 import kotlinx.android.synthetic.main.fragment_add_profile.*
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
+import java.time.DayOfWeek
 import java.util.*
 
 
@@ -19,6 +21,7 @@ class AddProfileFragment : BaseFragment() {
 
     private var profile: Profile? = null
     private lateinit var timePicker: TimePickerHelper
+    private lateinit var datePicker: DatePickerHelper
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
@@ -29,17 +32,41 @@ class AddProfileFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         timePicker = TimePickerHelper(context!!, false)
+        datePicker = DatePickerHelper(context!!)
+        val calendar = Calendar.getInstance()
 
         arguments?.let {
+            //display variables
             profile = AddProfileFragmentArgs.fromBundle(it).profile
             edit_text_name.setText(profile?.name)
             edit_text_species.setText(profile?.species)
             edit_text_location.setText(profile?.location)
-            setTimeButtonText(profile!!.hour, profile!!.minute)
+            if (profile != null) {
+                setTimeButtonText(profile!!.plantDate)
+                setDateButtonText(profile!!.plantDate)
+            }
         }
 
         buttonTime.setOnClickListener{
-            showTimePickerDialog()
+            timePicker.showDialog(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), object : TimePickerHelper.Callback {
+                override fun onTimeSelected(hourOfDay: Int, minute: Int) {
+                    calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                    calendar.set(Calendar.MINUTE, minute)
+                    setTimeButtonText(calendar)
+                }
+            })
+        }
+
+        //calendarView.setOnDateChangeListener()
+        buttonDate.setOnClickListener{
+            datePicker.showDialog(calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.MONTH), calendar.get(Calendar.YEAR), object : DatePickerHelper.Callback {
+                override fun onDateSelected(dayOfMonth: Int, month: Int, year: Int) {
+                    calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                    calendar.set(Calendar.MONTH, month)
+                    calendar.set(Calendar.YEAR, year)
+                    setDateButtonText(calendar)
+                }
+            })
         }
 
         button_save.setOnClickListener{ view ->
@@ -47,8 +74,7 @@ class AddProfileFragment : BaseFragment() {
             val profileName = edit_text_name.text.toString().trim()
             val profileSpecies = edit_text_species.text.toString().trim()
             val profileLocation = edit_text_location.text.toString().trim()
-            val profileHour = profile!!.hour
-            val profileMinute = profile!!.minute
+            val profileTime = calendar
 
             if(profileName.isEmpty()){
                 edit_text_name.error = "Name required"
@@ -58,7 +84,7 @@ class AddProfileFragment : BaseFragment() {
 
             launch{
                 context?.let {
-                    val mProfile = Profile(profileName, profileSpecies, profileLocation, profileHour, profileMinute)
+                    val mProfile = Profile(profileName, profileSpecies, profileLocation, profileTime)
 
                     if(profile == null){
                         ProfileDatabase(it).getProfileDao().addProfile(mProfile)
@@ -78,23 +104,14 @@ class AddProfileFragment : BaseFragment() {
 
     }
 
-    private fun showTimePickerDialog() {
-        val cal = Calendar.getInstance()
-        val h = cal.get(Calendar.HOUR_OF_DAY)
-        val m = cal.get(Calendar.MINUTE)
-        timePicker.showDialog(h, m, object : TimePickerHelper.Callback {
-            override fun onTimeSelected(hourOfDay: Int, minute: Int) {
-                setTimeButtonText(hourOfDay, minute)
-            }
-        })
-    }
-
-    private fun setTimeButtonText(hourOfDay: Int, minute: Int) {
-        val calendar = Calendar.getInstance()
-        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
-        calendar.set(Calendar.MINUTE, minute)
+    private fun setTimeButtonText(calendar: Calendar) {
         val dateFormat = SimpleDateFormat("h:mm a", Locale.getDefault())
         buttonTime!!.text = dateFormat.format(calendar.time)
+    }
+
+    private fun setDateButtonText(calendar: Calendar) {
+        val dateFormat = SimpleDateFormat("E, M/d", Locale.getDefault())
+        buttonDate!!.text = dateFormat.format(calendar.time)
     }
 
     private fun deleteProfile(){

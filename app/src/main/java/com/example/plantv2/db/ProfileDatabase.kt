@@ -8,11 +8,10 @@ import androidx.room.TypeConverters
 
 @Database(
     entities = [Profile::class],
-    version = 2
+    version = 3
 )
-
+@TypeConverters(Converters::class)
 abstract class ProfileDatabase : RoomDatabase(){
-
     abstract fun getProfileDao() : ProfileDao
 
     companion object {
@@ -29,6 +28,7 @@ abstract class ProfileDatabase : RoomDatabase(){
         private fun buildDatabase(context: Context) = Room.databaseBuilder(
             context.applicationContext,
             ProfileDatabase::class.java,
-            "profiledatabase").addMigrations(Migrations.MIGRATION_1_2).build()
+            "profiledatabase").addMigrations(Migrations.MIGRATION_1_2, Migrations.MIGRATION_2_3).build()
     }
+
 }

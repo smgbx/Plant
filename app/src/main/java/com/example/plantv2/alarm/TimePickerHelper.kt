@@ -15,6 +15,7 @@ class TimePickerHelper(
     private val listener = OnTimeSetListener { _, hourOfDay, minute ->
         callback?.onTimeSelected(hourOfDay, minute)
     }
+
     init {
         val style = R.style.SpinnerTimePickerDialog
         val cal = Calendar.getInstance()
@@ -26,6 +27,11 @@ class TimePickerHelper(
         dialog.updateTime(hourOfDay, minute)
         dialog.show()
     }
+
+    fun getHour(){
+        //dialog.
+    }
+
     interface Callback {
         fun onTimeSelected(hourOfDay: Int, minute: Int)
     }

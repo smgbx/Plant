@@ -71,21 +71,34 @@
         android:hint="@string/days"
         android:layout_below="@+id/buttonTime"/>
 
-    <TextView
+    <!-- <TextView
         android:id="@+id/linearLayoutDates"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
-        android:layout_below="@+id/edit_days"/>
+        android:layout_below="@+id/edit_days"/> -->
 
-    <CalendarView
+    <Button
+        android:id="@+id/buttonDate"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="@string/select_day"
+        android:layout_below="@id/edit_days"/>
+
+    <!-- <CalendarView
         android:id="@+id/calendarView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/linearLayoutDates"/>
+        android:layout_below="@id/linearLayoutDates"/> -->
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/button_save"

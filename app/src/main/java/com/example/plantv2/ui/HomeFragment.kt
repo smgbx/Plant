@@ -24,9 +24,6 @@ class HomeFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        //recycler_view_profiles.setHasFixedSize(true)
-        //recycler_view_profiles.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-
         launch {
             context?.let {
                 val profiles = ProfileDatabase(it).getProfileDao().getAllProfiles()
