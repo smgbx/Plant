@@ -1,11 +1,17 @@
 package com.example.plantv2.ui
 
 
-import android.app.AlertDialog
+import android.app.*
+import android.content.Context
+import android.content.Intent
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.view.*
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.navigation.Navigation
 import com.example.plantv2.R
+import com.example.plantv2.alarm.AlarmReceiver
 import com.example.plantv2.alarm.DatePickerHelper
 import com.example.plantv2.alarm.TimePickerHelper
 import com.example.plantv2.db.Profile
@@ -21,6 +27,10 @@ class AddProfileFragment : BaseFragment() {
     private var profile: Profile? = null
     private lateinit var timePicker: TimePickerHelper
     private lateinit var datePicker: DatePickerHelper
+    //private val REQUEST_CODE = 100
+    private lateinit var alarmManager: AlarmManager
+    private lateinit var pendingIntent: PendingIntent
+    private var mNotificationManager: NotificationManager? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
@@ -30,11 +40,19 @@ class AddProfileFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
         timePicker = TimePickerHelper(context!!, false)
         datePicker = DatePickerHelper(context!!)
         val calendar = Calendar.getInstance()
 
-        arguments?.let {
+        mNotificationManager = context!!.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        alarmManager = context!!.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+        val alarmIntent = Intent(context, AlarmReceiver::class.java)
+        //val alarmUp = PendingIntent.getBroadcast(context, NOTIFICATION_ID, alarmIntent, PendingIntent.FLAG_NO_CREATE) != null
+        val pendingIntent = PendingIntent.getBroadcast(context, NOTIFICATION_ID, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+
+            arguments?.let {
             //display variables
             profile = AddProfileFragmentArgs.fromBundle(it).profile
             edit_text_name.setText(profile?.name)
@@ -72,7 +90,6 @@ class AddProfileFragment : BaseFragment() {
             val profileName = edit_text_name.text.toString().trim()
             val profileSpecies = edit_text_species.text.toString().trim()
             val profileLocation = edit_text_location.text.toString().trim()
-            val profileTime = calendar
 
             if(profileName.isEmpty()){
                 edit_text_name.error = "Name required"
@@ -80,9 +97,17 @@ class AddProfileFragment : BaseFragment() {
                 return@setOnClickListener
             }
 
+            alarmManager.setRepeating(
+                AlarmManager.RTC_WAKEUP,
+                calendar.timeInMillis,
+                1000 * 60 * 24 * 7,
+                pendingIntent
+            )
+            createNotificationChannel()
+
             launch{
                 context?.let {
-                    val mProfile = Profile(profileName, profileSpecies, profileLocation, profileTime)
+                    val mProfile = Profile(profileName, profileSpecies, profileLocation, calendar)
 
                     if(profile == null){
                         ProfileDatabase(it).getProfileDao().addProfile(mProfile)
@@ -122,11 +147,13 @@ class AddProfileFragment : BaseFragment() {
                     val action = AddProfileFragmentDirections.actionSaveProfile()
                     Navigation.findNavController(view!!).navigate(action)
                 }
+                alarmManager.cancel(pendingIntent)
             }
             setNegativeButton("No"){_,_ ->
 
             }
         }.create().show()
+        mNotificationManager!!.cancelAll()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -140,6 +167,34 @@ class AddProfileFragment : BaseFragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.menu, menu)
+    }
+
+    /**
+     * Creates a Notification channel, for OREO and higher.
+     */
+    private fun createNotificationChannel() { // Create a notification manager object.
+        mNotificationManager = context!!.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        // Notification channels are only available in OREO and higher.
+// So, add a check on SDK version.
+        if (Build.VERSION.SDK_INT >=
+            Build.VERSION_CODES.O) { // Create the NotificationChannel with all the parameters.
+            val notificationChannel = NotificationChannel(PRIMARY_CHANNEL_ID,
+                "Stand up notification",
+                NotificationManager.IMPORTANCE_HIGH)
+            notificationChannel.enableLights(true)
+            notificationChannel.lightColor = Color.RED
+            notificationChannel.enableVibration(true)
+            notificationChannel.description = "Notifies every 15 minutes to " +
+                    "stand up and walk"
+            mNotificationManager!!.createNotificationChannel(notificationChannel)
+        }
+    }
+
+    companion object {
+        // Notification ID.
+        private const val NOTIFICATION_ID = 0
+        // Notification channel ID.
+        private const val PRIMARY_CHANNEL_ID = "primary_notification_channel"
     }
 
 

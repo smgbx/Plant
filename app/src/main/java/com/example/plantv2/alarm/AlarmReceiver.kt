@@ -1,16 +1,59 @@
 package com.example.plantv2.alarm
 
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.widget.Toast
+import androidx.core.app.NotificationCompat
+import com.example.plantv2.R
+import com.example.plantv2.ui.MainActivity
 
 class AlarmReceiver : BroadcastReceiver() {
+    private var mNotificationManager: NotificationManager? = null
+
+    /**
+     * Called when the BroadcastReceiver receives an Intent broadcast.
+     *
+     * @param context The Context in which the receiver is running.
+     * @param intent The Intent being received.
+     */
     override fun onReceive(context: Context, intent: Intent) {
-        // Is triggered when alarm goes off, i.e. receiving a system broadcast
-        if (intent.action == "FOO_ACTION") {
-            val fooString = intent.getStringExtra("KEY_FOO_STRING")
-            Toast.makeText(context, fooString, Toast.LENGTH_LONG).show()
-        }
+        mNotificationManager =
+            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        // Deliver the notification.
+        deliverNotification(context)
+    }
+
+    /**
+     * Builds and delivers the notification.
+     *
+     * @param context, activity context.
+     */
+    private fun deliverNotification(context: Context) { // Create the content intent for the notification, which launches
+// this activity
+        val contentIntent = Intent(context, MainActivity::class.java)
+        val contentPendingIntent = PendingIntent.getActivity(context, NOTIFICATION_ID, contentIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+        // Build the notification
+        val builder = NotificationCompat.Builder(context, PRIMARY_CHANNEL_ID)
+            .setSmallIcon(R.drawable.leaves)
+            .setContentTitle("PlanT Alert")
+            .setContentText("It's time to water!")
+            .setContentIntent(contentPendingIntent)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setAutoCancel(true)
+            .setDefaults(NotificationCompat.DEFAULT_ALL)
+        // Deliver the notification
+        mNotificationManager!!.notify(NOTIFICATION_ID, builder.build())
+    }
+
+    companion object {
+        // Notification ID.
+        private const val NOTIFICATION_ID = 0
+        // Notification channel ID.
+        private const val PRIMARY_CHANNEL_ID = "primary_notification_channel"
     }
 }
+
+
+

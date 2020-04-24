@@ -27,11 +27,6 @@ class TimePickerHelper(
         dialog.updateTime(hourOfDay, minute)
         dialog.show()
     }
-
-    fun getHour(){
-        //dialog.
-    }
-
     interface Callback {
         fun onTimeSelected(hourOfDay: Int, minute: Int)
     }
