@@ -36,12 +36,12 @@ class AlarmReceiver : BroadcastReceiver() {
         val contentPendingIntent = PendingIntent.getActivity(context, NOTIFICATION_ID, contentIntent, PendingIntent.FLAG_UPDATE_CURRENT)
         // Build the notification
         val builder = NotificationCompat.Builder(context, PRIMARY_CHANNEL_ID)
-            .setSmallIcon(R.drawable.leaves)
-            .setContentTitle("PlanT Alert")
+            .setSmallIcon(R.drawable.ic_filter_vintage_black_24dp)
+            .setContentTitle("Plant Alert")
             .setContentText("It's time to water!")
             .setContentIntent(contentPendingIntent)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
-            .setAutoCancel(true)
+            .setAutoCancel(false)
             .setDefaults(NotificationCompat.DEFAULT_ALL)
         // Deliver the notification
         mNotificationManager!!.notify(NOTIFICATION_ID, builder.build())

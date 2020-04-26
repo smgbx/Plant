@@ -18,18 +18,26 @@
             <TextView
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
                 tools:text="My First Plant"
-                android:layout_marginBottom="10dp"
                 android:id="@+id/text_view_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <TextView
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                 tools:text="Plant Species"
                 android:layout_below="@id/text_view_name"
                 android:id="@+id/text_view_species"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
+
+            <TextView
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                tools:text="Water Date"
+                android:layout_below="@id/text_view_species"
+                android:id="@+id/text_view_water_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
 
             <TextView
                 android:id="@+id/text_view_water_time"
@@ -40,6 +48,16 @@
                 android:layout_marginEnd="7dp"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
                 tools:text="6:00am"/>
+
+            <CheckBox
+                android:id="@+id/checkBoxAdministered"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:clickable="false"
+                android:layout_below="@id/text_view_water_time"
+                android:layout_alignParentEnd="true"/>
+
 
         </RelativeLayout>
 

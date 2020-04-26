@@ -8,7 +8,6 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.*
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.navigation.Navigation
 import com.example.plantv2.R
 import com.example.plantv2.alarm.AlarmReceiver
@@ -48,7 +47,8 @@ class AddProfileFragment : BaseFragment() {
         mNotificationManager = context!!.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         alarmManager = context!!.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-        val alarmIntent = Intent(context, AlarmReceiver::class.java)
+        val alarmIntent = Intent(context, AlarmReceiver::class.java).apply {
+        }
         //val alarmUp = PendingIntent.getBroadcast(context, NOTIFICATION_ID, alarmIntent, PendingIntent.FLAG_NO_CREATE) != null
         val pendingIntent = PendingIntent.getBroadcast(context, NOTIFICATION_ID, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
@@ -179,13 +179,13 @@ class AddProfileFragment : BaseFragment() {
         if (Build.VERSION.SDK_INT >=
             Build.VERSION_CODES.O) { // Create the NotificationChannel with all the parameters.
             val notificationChannel = NotificationChannel(PRIMARY_CHANNEL_ID,
-                "Stand up notification",
+                "Water notification",
                 NotificationManager.IMPORTANCE_HIGH)
             notificationChannel.enableLights(true)
             notificationChannel.lightColor = Color.RED
             notificationChannel.enableVibration(true)
-            notificationChannel.description = "Notifies every 15 minutes to " +
-                    "stand up and walk"
+            notificationChannel.description = "Notifies plant caretaker to " +
+                    "water a specific plant"
             mNotificationManager!!.createNotificationChannel(notificationChannel)
         }
     }

@@ -20,5 +20,6 @@
     </string-array>
 
     <string name="create_reminder">Create Reminder</string>
+    <string name="text_done">Done!</string>
 
 </resources>
