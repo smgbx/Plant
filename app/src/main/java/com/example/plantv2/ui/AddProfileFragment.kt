@@ -1,6 +1,5 @@
 package com.example.plantv2.ui
 
-
 import android.app.*
 import android.content.Context
 import android.content.Intent
@@ -21,7 +20,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.Calendar.DATE
 import java.util.Calendar.WEEK_OF_YEAR
-
 
 class AddProfileFragment : BaseFragment() {
 

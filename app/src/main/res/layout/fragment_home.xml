@@ -13,6 +13,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/leaves"
+        android:background="#f7f7f7"
         android:contentDescription="@string/pic_leaves" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -25,13 +26,15 @@
         android:layout_marginTop="16dp"
         app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
         app:spanCount="1"
-        tools:listitem="@layout/profile_layout"/>
+        tools:listitem="@layout/profile_layout"
+        android:background="@android:color/transparent"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/button_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:tint="@android:color/white"
+        android:backgroundTint="#499d45"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:clickable="true"

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -8,7 +9,8 @@
     <androidx.cardview.widget.CardView
         android:layout_margin="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        card_view:cardBackgroundColor="#E6FFFFFF">
 
         <RelativeLayout
             android:padding="8dp"
@@ -48,8 +50,6 @@
                 android:layout_marginEnd="7dp"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
                 tools:text="6:00am"/>
-
-
 
         </RelativeLayout>
 
