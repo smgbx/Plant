@@ -39,10 +39,6 @@ class ProfileAdapter(private val profiles : List<Profile>) : RecyclerView.Adapte
             action.profile = profiles[position]
             Navigation.findNavController(it).navigate(action)
         }
-
-        holder.view.checkBoxAdministered.setOnClickListener {
-            holder.view.checkBoxAdministered.isChecked
-        }
     }
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = profiles.size

@@ -6,23 +6,36 @@
     android:layout_height="match_parent"
     tools:context=".ui.AddProfileFragment">
 
-    <EditText
-        android:id="@+id/edit_text_name"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
+        android:id="@+id/linear_layout">
 
+    <EditText
+        android:id="@+id/edit_text_name"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
         android:hint="@string/name"
         android:inputType="text"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        android:layout_weight="0.6"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+
+        <CheckBox
+            android:id="@+id/checkBoxAdministered"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:background="@null"
+            android:scaleX="1.70"
+            android:scaleY="1.70"
+            android:text="@string/not_watered" />
+    </LinearLayout>
 
     <EditText
         android:id="@+id/edit_text_species"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/edit_text_name"
+        android:layout_below="@id/linear_layout"
         android:layout_alignParentStart="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="-1dp"
@@ -71,15 +84,6 @@
         android:hint="@string/days"
         android:layout_below="@+id/buttonTime"/>
 
-    <!-- <TextView
-        android:id="@+id/linearLayoutDates"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:layout_below="@+id/edit_days"/> -->
-
     <Button
         android:id="@+id/buttonDate"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"
@@ -93,21 +97,15 @@
         android:text="@string/select_day"
         android:layout_below="@id/edit_days"/>
 
-    <!-- <CalendarView
-        android:id="@+id/calendarView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/linearLayoutDates"/> -->
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/button_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:clickable="true"
         android:src="@drawable/ic_check_black_24dp"
-        android:tint="@android:color/black" />
+        android:tint="@android:color/black"
+        android:focusable="true" />
 
 </RelativeLayout>

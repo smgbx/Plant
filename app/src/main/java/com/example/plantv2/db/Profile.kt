@@ -10,10 +10,6 @@ data class Profile (
     val name: String,
     val species: String,
     val location: String,
-    //val days: List<String>,
-    //var time: String
-    //val minute: Int,
-    //val hour: Int
     val plantDate: Calendar = Calendar.getInstance()
 ):Serializable{
     @PrimaryKey(autoGenerate = true)

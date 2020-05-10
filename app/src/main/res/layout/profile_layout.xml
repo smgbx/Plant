@@ -49,14 +49,6 @@
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
                 tools:text="6:00am"/>
 
-            <CheckBox
-                android:id="@+id/checkBoxAdministered"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:clickable="false"
-                android:layout_below="@id/text_view_water_time"
-                android:layout_alignParentEnd="true"/>
 
 
         </RelativeLayout>

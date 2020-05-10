@@ -19,6 +19,8 @@ import kotlinx.android.synthetic.main.fragment_add_profile.*
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.Calendar.DATE
+import java.util.Calendar.WEEK_OF_YEAR
 
 
 class AddProfileFragment : BaseFragment() {
@@ -26,7 +28,6 @@ class AddProfileFragment : BaseFragment() {
     private var profile: Profile? = null
     private lateinit var timePicker: TimePickerHelper
     private lateinit var datePicker: DatePickerHelper
-    //private val REQUEST_CODE = 100
     private lateinit var alarmManager: AlarmManager
     private lateinit var pendingIntent: PendingIntent
     private var mNotificationManager: NotificationManager? = null
@@ -42,14 +43,13 @@ class AddProfileFragment : BaseFragment() {
 
         timePicker = TimePickerHelper(context!!, false)
         datePicker = DatePickerHelper(context!!)
-        val calendar = Calendar.getInstance()
-
+        var calendar = Calendar.getInstance()
         mNotificationManager = context!!.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         alarmManager = context!!.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         val alarmIntent = Intent(context, AlarmReceiver::class.java).apply {
         }
-        //val alarmUp = PendingIntent.getBroadcast(context, NOTIFICATION_ID, alarmIntent, PendingIntent.FLAG_NO_CREATE) != null
+
         val pendingIntent = PendingIntent.getBroadcast(context, NOTIFICATION_ID, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
             arguments?.let {
@@ -83,6 +83,20 @@ class AddProfileFragment : BaseFragment() {
                     setDateButtonText(calendar)
                 }
             })
+        }
+
+        checkBoxAdministered.setOnClickListener{
+            val currentTime = Calendar.getInstance()
+            if (checkBoxAdministered.isChecked) {
+                checkBoxAdministered.setText(R.string.watered)
+                calendar.add(DATE, 7)
+                setDateButtonText(calendar)
+            }
+            else {
+                checkBoxAdministered.setText(R.string.not_watered)
+                calendar = currentTime
+                setDateButtonText(calendar)
+            }
         }
 
         button_save.setOnClickListener{ view ->
@@ -142,18 +156,18 @@ class AddProfileFragment : BaseFragment() {
             setTitle("Are you sure you want to delete this plant?")
             setMessage("You can't undo this operation.")
             setPositiveButton("Yes"){_,_ ->
+                //alarmManager.cancel(pendingIntent)
+                mNotificationManager!!.cancelAll()
                 launch {
                     ProfileDatabase(context).getProfileDao().deleteProfile(profile!!)
                     val action = AddProfileFragmentDirections.actionSaveProfile()
                     Navigation.findNavController(view!!).navigate(action)
                 }
-                alarmManager.cancel(pendingIntent)
             }
             setNegativeButton("No"){_,_ ->
 
             }
         }.create().show()
-        mNotificationManager!!.cancelAll()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -196,6 +210,5 @@ class AddProfileFragment : BaseFragment() {
         // Notification channel ID.
         private const val PRIMARY_CHANNEL_ID = "primary_notification_channel"
     }
-
 
 }
